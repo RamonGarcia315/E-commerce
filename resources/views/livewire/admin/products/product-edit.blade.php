@@ -10,7 +10,7 @@
                     <input type="file" class="hidden" accept="image/*" wire:model="image">
                 </label>
             </div>
-            <img class="aspect-[16/9] object-cover object-center w-full" src="{{ $image ? $image->temporaryUrl() : asset('img/no-image.png') }}" alt="">
+            <img class="aspect-[16/9] object-cover object-center w-full" src="{{ $image ? $image->temporaryUrl() : Storage::url($productEdit['image_path']) }}" alt="">
         </figure>
 
         <x-validation-errors class="mb-4"></x-validation-errors>
@@ -22,7 +22,7 @@
                     Kód
                 </x-label>
                 
-                <x-input wire:model="product.sku" class="w-full" placeholder="Zadejte kód produktu"/>
+                <x-input wire:model="productEdit.sku" class="w-full" placeholder="Zadejte kód produktu"/>
             </div>
 
             <div class="mb-4">
@@ -30,7 +30,7 @@
                     Jmeno
                 </x-label>
                 
-                <x-input wire:model="product.name" class="w-full" placeholder="Zadejte nazev produktu"/>
+                <x-input wire:model="productEdit.name" class="w-full" placeholder="Zadejte nazev produktu"/>
             </div>
 
             <div class="mb-4">
@@ -38,7 +38,7 @@
                     Popis
                 </x-label>
                 
-                <x-textarea wire:model="product.description" class="w-full" placeholder="Zadejte popis produktu"></x-textarea>
+                <x-textarea wire:model="productEdit.description" class="w-full" placeholder="Zadejte popis produktu"></x-textarea>
             </div>
 
             <div class="mb-4">
@@ -76,7 +76,7 @@
                     Podkategorie
                 </x-label>
 
-                <x-select class="w-full" wire:model.live="product.subcategory_id">
+                <x-select class="w-full" wire:model.live="productEdit.subcategory_id">
                     <option value="" disabled>Vyberte podkategorie</option>
                     @foreach ($this->subcategories as $subcategory)
                         <option value="{{$subcategory->id}}">
@@ -91,15 +91,41 @@
                     Cena
                 </x-label>
 
-                <x-input type="number" step="0.01" wire:model="product.price" class="w-full" placeholder="Zadejte cena produktu"/>
+                <x-input type="number" step="0.01" wire:model="productEdit.price" class="w-full" placeholder="Zadejte cena produktu"/>
             </div>
             
             <div class="flex justify-end">
-                <x-button>
-                    Vytvořit produkt
+                <x-danger-button onclick="confirmDelete()">Odstranit</x-danger-button>
+                <x-button class="ml-2">
+                    Aktualizovat
                 </x-button>
             </div>
-
         </div>
     </form>
+    <form action="{{route('admin.products.destroy', $product)}}" method="POST" id="delete-form">
+		@csrf
+
+		@method('DELETE')
+	</form>
+
+	@push('js')
+		<script>
+			function confirmDelete() {
+				Swal.fire({
+						title: "Jste si jistý?",
+						text: "Tuto akci nelze vrátit zpět!",
+						icon: "warning",
+						showCancelButton: true,
+						confirmButtonColor: "#3085d6",
+						cancelButtonColor: "#d33",
+						confirmButtonText: "Ano, smazat!",
+						cancelButtonText: "Zrušit"
+						}).then((result) => {
+						if (result.isConfirmed) {
+							document.getElementById('delete-form').submit();
+						}
+						});
+			}
+		</script>
+	@endpush
 </div>

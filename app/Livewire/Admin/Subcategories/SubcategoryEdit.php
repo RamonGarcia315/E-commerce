@@ -51,11 +51,13 @@ class SubcategoryEdit extends Component
 
         $this->subcategory->update($this->subcategoryEdit);
 
-        $this->dispatch('swal', [
+        session()->flash('swal', [
             'icon' => 'success',
             'title' => 'Aktualizováno!',
             'text' => 'Kategorie byla úspěšně aktualizována'
         ]);
+
+        return redirect()->route('admin.subcategories.edit', $this->subcategory);
     }
 
     public function render()

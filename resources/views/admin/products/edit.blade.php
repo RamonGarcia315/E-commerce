@@ -8,10 +8,10 @@
 		'route' => route('admin.products.index'),
     ],
 	[
-        'name' => 'Nový'
+        'name' => $product->name
     ]
 ]">
 
-	@livewire('admin.products.product-create')
+	@livewire('admin.products.product-edit', ['product' => $product])
 
 </x-admin-layout>

@@ -40,7 +40,7 @@
 				<x-label class="mb-2">
 					Jmeno
 				</x-label>
-				<x-input class="w-full" placeholder="Zadejte název kategorie" wire:model="subcategory.name"/>
+				<x-input class="w-full" placeholder="Zadejte název podkategorie" wire:model="subcategory.name"/>
 			</div>
 
 			<div class="flex justify-end">
