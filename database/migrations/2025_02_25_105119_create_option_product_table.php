@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('option_product', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('option_id')->constrained()->onDelete('cascade');
+            $table->foreignId('option_id')->constrained();
 
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_id')->constrained();
 
-            $table->json('features');
+            $table->string('value');
 
             $table->timestamps();
         });

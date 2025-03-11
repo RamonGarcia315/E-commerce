@@ -14,13 +14,11 @@ return new class extends Migration
         Schema::create('variants', function (Blueprint $table) {
             $table->id();
 
-            $table->string('sku')->nullable();
+            $table->string('sku');
 
-            $table->string('image_path')->nullable();
+            $table->string('image_path');
 
-            $table->integer('stock')->unsigned()->default(0);
-
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_id')->constrained();
 
             $table->timestamps();
         });

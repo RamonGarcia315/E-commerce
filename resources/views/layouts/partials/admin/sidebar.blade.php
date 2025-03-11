@@ -7,12 +7,6 @@
             'active' => request()->routeIs('admin.dashboard')
         ],
         [
-            'name' => 'Možnosti',
-            'icon' => 'fa-solid fa-cog',
-            'route' => route('admin.options.index'),
-            'active' => request()->routeIs('admin.options.*')
-        ],
-        [
             'name' => 'Rodiny',
             'icon' => 'fa-solid fa-box-open',
             'route' => route('admin.families.index'),

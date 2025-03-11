@@ -15,7 +15,6 @@ class Product extends Model
         'description',
         'image_path',
         'price',
-        'stock',
         'subcategory_id'
     ];
 
@@ -28,6 +27,6 @@ class Product extends Model
     }
 
     public function options(){
-        return $this->belongsToMany(Option::class)->using(OptionProduct::class)->withPivot('features')->withTimestamps();
+        return $this->belongsToMany(Option::class)->withPivot('value')->withTimestamps();
     }
 }
